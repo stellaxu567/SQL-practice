@@ -1,0 +1,17 @@
+#9
+SELECT *
+FROM nobel
+WHERE yr=1980 AND
+subject NOT IN ('Chemistry','Medicine')
+
+#12
+SELECT *
+FROM nobel
+WHERE winner='EUGENE O''NEILL'
+
+#14
+SELECT winner, subject
+FROM nobel
+WHERE yr=1984 
+ORDER BY subject in ('Physics','Chemistry'), subject, winner
+
