@@ -26,10 +26,11 @@ WHERE title='Casablanca'
 
 #6#
 SELECT name
-FROM actor, casting
-WHERE movieid=(SELECT id FROM movie
-WHERE movieid=11768 AND title='Casablanca')
-AND actorid=actor.id
+FROM casting, actor
+WHERE movieid=(SELECT id 
+FROM movie 
+WHERE title='Casablanca')
+AND actorid=actor.id 
 
 #7
 SELECT name
@@ -52,10 +53,30 @@ AND ord<>1
 AND movieid=movie.id
 AND actorid=actor.id
 
-#10#
+#10
 SELECT title, name
 FROM movie, casting, actor
 WHERE ord=1
 AND yr=1962
 AND movie.id=movieid
 AND actor.id=actorid
+
+#11
+SELECT yr,COUNT(title) 
+FROM movie 
+JOIN casting ON movie.id=movieid
+JOIN actor   ON actorid=actor.id
+WHERE name='Rock Hudson'
+GROUP BY yr
+HAVING COUNT(title) > 2
+
+#12#
+SELECT title, name
+FROM movie, casting, actor
+WHERE movieid=movie.id
+AND actorid=actor.id
+AND ord=1
+AND movieid IN
+(SELECT movieid FROM casting, actor
+WHERE actorid=actor.id
+AND name='Julie Andrews')
